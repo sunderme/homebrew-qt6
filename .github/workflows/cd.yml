@@ -1,0 +1,44 @@
+name: CD
+on:
+  - push
+  - pull_request
+
+jobs:
+  
+      
+  macosx:
+    name: Mac OS X
+    runs-on: macos-11
+    if: True
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    
+
+    - name: Package
+      id: package
+      run: |
+        brew install --build-bottle ${{ github.repository_owner }}/qt6/qt6-base
+        brew bottle qt6-base
+        ls -l
+    - name: Archive bottle
+      uses: actions/upload-artifact@v3
+      with:
+        name: qt6-base
+        path: qt6-base*.tar.gz 
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: qt6-base*.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+
+
+        
+ 
