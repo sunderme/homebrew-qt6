@@ -29,24 +29,28 @@ jobs:
         cd build
         echo
         cmake ..
+        cmake --build . --parallel
         
     - name: Package
       id: package
       run: |
+        cd qtbase-everywhere-src-6.4.0
         cd build
         cpack -G TXZ
+        cp *.xz ../..
+        pwd
 
     - name: Archive txz
       uses: actions/upload-artifact@v3
       with:
         name: qt6-base
-        path: build/QtBase*.tar.xz 
+        path: QtBase*.tar.xz 
 
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: build/QtBase*.tar.xz
+        files: QtBase*.tar.xz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
 
