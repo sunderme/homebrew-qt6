@@ -28,7 +28,7 @@ jobs:
         mkdir build
         cd build
         echo
-        cmake ..
+        cmake .. -G Ninja
         cmake --build . --parallel
         
     - name: Package
