@@ -17,6 +17,10 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Build dependency
+      run: |
+        brew install ninja
+
     - name: Download source
       run: |
         wget https://download.qt.io/official_releases/qt/6.4/6.4.0/submodules/qtbase-everywhere-src-6.4.0.tar.xz
