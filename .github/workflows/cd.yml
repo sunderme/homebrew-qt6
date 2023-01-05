@@ -23,11 +23,11 @@ jobs:
 
     - name: Download source
       run: |
-        wget https://download.qt.io/official_releases/qt/6.4/6.4.1/submodules/qtbase-everywhere-src-6.4.1.tar.xz
-        tar xvf qtbase-everywhere-src-6.4.1.tar.xz
+        wget https://download.qt.io/official_releases/qt/6.4/6.4.2/submodules/qtbase-everywhere-src-6.4.2.tar.xz
+        tar xvf qtbase-everywhere-src-6.4.2.tar.xz
     - name: Build
       run: |
-        cd qtbase-everywhere-src-6.4.1
+        cd qtbase-everywhere-src-6.4.2
         echo "include(CPack)">>CMakeLists.txt
         mkdir build
         cd build
@@ -38,7 +38,7 @@ jobs:
     - name: Package
       id: package
       run: |
-        cd qtbase-everywhere-src-6.4.1
+        cd qtbase-everywhere-src-6.4.2
         cd build
         cpack -G TXZ
         cp *.xz ../..
