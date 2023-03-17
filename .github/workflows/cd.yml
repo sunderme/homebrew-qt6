@@ -3,6 +3,10 @@ on:
   - push
   - pull_request
 
+env:
+  QT_VERSION: 6.4.3
+  QT_VERSION_MAJOR: 6.4
+
 jobs:
   
       
@@ -23,11 +27,11 @@ jobs:
 
     - name: Download source
       run: |
-        wget https://download.qt.io/official_releases/qt/6.4/6.4.2/submodules/qtbase-everywhere-src-6.4.2.tar.xz
-        tar xvf qtbase-everywhere-src-6.4.2.tar.xz
+        wget https://download.qt.io/official_releases/qt/${{ env.QT_VERSION_MAJOR }}/${{ env.QT_VERSION }}/submodules/qtbase-everywhere-src-${{ env.QT_VERSION }}.tar.xz
+        tar xvf qtbase-everywhere-src-${{ env.QT_VERSION }}.tar.xz
     - name: Build
       run: |
-        cd qtbase-everywhere-src-6.4.2
+        cd qtbase-everywhere-src-${{ env.QT_VERSION }}
         echo "include(CPack)">>CMakeLists.txt
         mkdir build
         cd build
@@ -38,7 +42,7 @@ jobs:
     - name: Package
       id: package
       run: |
-        cd qtbase-everywhere-src-6.4.2
+        cd qtbase-everywhere-src-${{ env.QT_VERSION }}
         cd build
         cpack -G TXZ
         cp *.xz ../..
