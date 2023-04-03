@@ -4,8 +4,8 @@ on:
   - pull_request
 
 env:
-  QT_VERSION: 6.4.3
-  QT_VERSION_MAJOR: 6.4
+  QT_VERSION: 6.5.0
+  QT_VERSION_MAJOR: 6.5
 
 jobs:
   
